@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyle from "./components/GlobalStyle";
+import { React, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UserContext from "./contexts/UserContext";
+import Home from "./pages/Home";
 
-function App() {
+export default function App() {
+  const [nome, setNome] = useState("");
+  const [token, setToken] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <UserContext.Provider value={{ nome, setNome, token, setToken }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
+    </>
   );
 }
-
-export default App;
